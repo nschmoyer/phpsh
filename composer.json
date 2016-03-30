@@ -1,0 +1,11 @@
+{
+    "require": {
+        "monolog/monolog": "^1.18",
+        "phpunit/phpunit": "4.8.x-dev"
+    },
+    "autoload": {
+    	"psr-0": {
+    		"phpsh\\": "src/"
+    	}
+    }
+}
