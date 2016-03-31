@@ -1,0 +1,10 @@
+# Command structure:
+# 
+# commandname:
+#   args: (int)
+#
+# A corresponding class should be created in the commands directory
+# named "commandCommandname". Use the php template file for a starting
+# point.
+help:
+  args: 0

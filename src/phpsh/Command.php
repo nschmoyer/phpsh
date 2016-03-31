@@ -5,10 +5,17 @@
 
 namespace phpsh;
 
+use Symfony\Component\Yaml\Parser;
+
 class Command
 {
 
 	private $args;
+
+	public function __construct()
+	{
+
+	}
 
 	public function setArgs($num)
 	{
@@ -18,6 +25,18 @@ class Command
 	public function getArgs()
 	{
 		return $this->args;
+	}
+
+	/**
+	 * Output text to the terminal.
+	 */
+	private function write($string = null)
+	{
+		if ($string) {
+			echo $string;
+		}
+
+		echo "\n";
 	}
 
 }
