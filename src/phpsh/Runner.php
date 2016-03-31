@@ -38,7 +38,7 @@ class Runner
 	{
 		$input = null;
 
-		while ($this->getCommand($input) !== "exit") {
+		while (1) {
 
 			$input = $this->outputPrompt();
 

@@ -1,8 +1,10 @@
 <?php
 
+namespace phpsh\Tests;
+
 use phpsh\Prompt;
 
-class PromptTest extends \PHPUnit_Framework_TestCase
+class PromptTest extends TestExtension
 {
 
 	public function testLoadWithoutConfigFile()
