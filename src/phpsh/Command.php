@@ -12,7 +12,7 @@ class Command
 
 	private $args;
 
-	public function __construct()
+	public function __construct($args = [])
 	{
 
 	}
@@ -30,7 +30,7 @@ class Command
 	/**
 	 * Output text to the terminal.
 	 */
-	private function write($string = null)
+	protected function write($string = null)
 	{
 		if ($string) {
 			echo $string;

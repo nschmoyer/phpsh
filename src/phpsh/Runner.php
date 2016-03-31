@@ -15,10 +15,19 @@ use Symfony\Component\Yaml\Parser;
 class Runner
 {
 
+	private $commandMap;
+
 	public function __construct()
 	{
 		$this->prompt = new Prompt();
 		$this->prompt->setConfigFile(__DIR__.'/config/prompt.yml');
+
+		// get the command.yml file and map it out as an array
+		$yaml = new Parser();
+		$this->commandMap = $yaml->parse(
+			file_get_contents(__DIR__.'/config/commands.yml')
+		);
+
 	}
 
 	/**
@@ -33,6 +42,8 @@ class Runner
 
 			$input = $this->outputPrompt();
 
+			$this->runCommand($input);
+
 		}
 	}
 
@@ -41,6 +52,25 @@ class Runner
 
 		echo $this->prompt->getPrompt();
 		return rtrim( fgets( STDIN ), "\n" );
+
+	}
+
+	private function runCommand($input)
+	{
+		$cmd = $this->getCommand($input);
+		$args = $this->getArgs($input);
+
+		if (array_key_exists($cmd, $this->commandMap)) {
+			
+			$class = "\phpsh\Commands\Command" . ucfirst($cmd);
+			$command = new $class($args);
+			$command->exec();
+
+		} else {
+
+			echo "Command not found.\n";
+
+		}
 
 	}
 
