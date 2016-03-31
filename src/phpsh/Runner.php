@@ -10,6 +10,8 @@
 namespace phpsh;
 
 use phpsh\Prompt;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 use Symfony\Component\Yaml\Parser;
 
 class Runner
@@ -27,6 +29,9 @@ class Runner
 		$this->commandMap = $yaml->parse(
 			file_get_contents(__DIR__.'/config/commands.yml')
 		);
+
+		$this->log = new Logger('commands');
+		$this->log->pushHandler(new StreamHandler(__DIR__.'/../../log/commands.log', Logger::INFO));
 
 	}
 
@@ -61,12 +66,16 @@ class Runner
 		$args = $this->getArgs($input);
 
 		if (array_key_exists($cmd, $this->commandMap)) {
+
+			$this->log->addInfo('Exec command: '.$cmd, $args);
 			
 			$class = "\phpsh\Commands\Command" . ucfirst($cmd);
 			$command = new $class($args);
 			$command->exec();
 
 		} else {
+
+			$this->log->addError('Invalid command: '.$cmd, $args);
 
 			echo "Command not found.\n";
 

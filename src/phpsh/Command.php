@@ -14,7 +14,7 @@ class Command
 
 	public function __construct($args = [])
 	{
-
+		
 	}
 
 	public function setArgs($num)
