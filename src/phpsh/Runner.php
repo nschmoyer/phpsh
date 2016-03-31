@@ -9,6 +9,7 @@
 
 namespace phpsh;
 
+use phpsh\CommandMap;
 use phpsh\Prompt;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -17,18 +18,10 @@ use Symfony\Component\Yaml\Parser;
 class Runner
 {
 
-	private $commandMap;
-
 	public function __construct()
 	{
 		$this->prompt = new Prompt();
 		$this->prompt->setConfigFile(__DIR__.'/config/prompt.yml');
-
-		// get the command.yml file and map it out as an array
-		$yaml = new Parser();
-		$this->commandMap = $yaml->parse(
-			file_get_contents(__DIR__.'/config/commands.yml')
-		);
 
 		$this->log = new Logger('commands');
 		$this->log->pushHandler(new StreamHandler(__DIR__.'/../../log/commands.log', Logger::INFO));
@@ -65,11 +58,15 @@ class Runner
 		$cmd = $this->getCommand($input);
 		$args = $this->getArgs($input);
 
-		if (array_key_exists($cmd, $this->commandMap)) {
+		// get the command.yml file and map it out as an array
+		$map = new CommandMap();
+		$commandMap = $map->getCommandMap();
+
+		if (array_key_exists($cmd, $commandMap)) {
 
 			$this->log->addInfo('Exec command: '.$cmd, $args);
 			
-			$class = "\phpsh\Commands\Command" . ucfirst($cmd);
+			$class = $commandMap[$cmd]['class'];
 			$command = new $class($args);
 			$command->exec();
 

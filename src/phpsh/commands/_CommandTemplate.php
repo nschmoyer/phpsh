@@ -10,6 +10,8 @@
 
 namespace phpsh\Commands;
 
+// use namespace\Class;
+
 class CommandTemplate extends \phpsh\Command
 {
 	/**

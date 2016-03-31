@@ -1,12 +1,18 @@
 # Command structure:
 # 
 # commandname:
+#   class: (string)
 #   args: (int)
 #
 # A corresponding class should be created in the commands directory
 # named "commandCommandname". Use the php template file for a starting
 # point.
+commands:
+  class: \phpsh\Commands\CommandCommands
+  args: 0
 exit:
+  class: \phpsh\Commands\CommandExit
   args: 0
 help:
+  class: \phpsh\Commands\CommandHelp
   args: 0
