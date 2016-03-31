@@ -16,3 +16,6 @@ exit:
 help:
   class: \phpsh\Commands\CommandHelp
   args: 0
+sleep:
+  class: \phpsh\Commands\CommandSleep
+  args: 1

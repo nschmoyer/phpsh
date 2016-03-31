@@ -68,7 +68,7 @@ class Runner
 			
 			$class = $commandMap[$cmd]['class'];
 			$command = new $class($args);
-			$command->exec();
+			$command->exec($args);
 
 		} else {
 

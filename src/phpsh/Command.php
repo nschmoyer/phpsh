@@ -5,21 +5,13 @@
 
 namespace phpsh;
 
-use Symfony\Component\Yaml\Parser;
-
 class Command
 {
-
 	private $args;
 
 	public function __construct($args = [])
 	{
-		
-	}
-
-	public function setArgs($num)
-	{
-		$this->args = $num;
+		$this->args = $args;
 	}
 
 	public function getArgs()
