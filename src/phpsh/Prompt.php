@@ -1,75 +1,58 @@
 <?php
-/**
- * PROMPT class for phpsh.
- *
- * This is the main "runner" for the application. It creates the console prompt,
- * accepts input, and invokes the Command class to look for the appropriate
- * output.
- */
 
 namespace phpsh;
 
+use Symfony\Component\Yaml\Parser;
+
 class Prompt
 {
+	private $configFile;
 
-	public function __construct()
+	public function getPrompt()
 	{
-		$this->prompt = "# ";
-	}
 
-	public function run()
-	{
-		$input = null;
+		$yaml = new Parser();
 
-		while ($this->getCommand($input) !== "exit") {
+		if ($this->getConfigFile()) {
 
-			$input = $this->outputPrompt();
+			$prompt = $yaml->parse(
+				file_get_contents($this->getConfigFile())
+			);
+
+			$prompt = $prompt['prompt'];
+
+			return $this->convertVariables($prompt);
+
+		} else {
+
+			return "# ";
 
 		}
 	}
 
-	private function outputPrompt()
+	private function convertVariables($prompt)
 	{
 
-		echo $this->prompt;
-		return rtrim( fgets( STDIN ), "\n" );
+		$prompt = str_replace("{{ time }}", date('H:i:s', time()), $prompt);
+		$prompt = str_replace("{{ date }}", date('Y-m-d', time()), $prompt);
+
+		return $prompt;
 
 	}
 
-	/**
-	 * Given an input string of multiple characters,
-	 * find the command (i.e. the first word)
-	 */
-	private function getCommand($input)
+	public function setConfigFile($configFile)
 	{
-
-		$input = trim(strtolower($input));
-		$input = explode(' ', $input);
-
-		return $input[0];
-
+		$this->configFile = $configFile;
 	}
 
-	/**
-	 * Given an input string of multiple words,
-	 * find the arguments (.e. the second and following words)
-	 */
-	private function getArgs($input)
+	public function getConfigFile()
 	{
 
-		$input = trim($input);
-		$input = explode(' ', $input);
-
-		$args = [];
-
-		for ($i = 0; $i < count($input); $i++) {
-			if ($i > 0) {
-				$args[] = $input[$i];
-			}
+		if ($this->configFile) {
+			return $this->configFile;
+		} else {
+			return false;
 		}
 
-		return $args;
-		
 	}
-
 }
