@@ -21,8 +21,6 @@ class CommandCorrel extends \phpsh\Command
 		$mean1 = array_sum($x) / $length;
 		$mean2 = array_sum($y) / $length;
 
-		$a = 0;
-		$b = 0;
 		$axb = 0;
 		$a2 = 0;
 		$b2 = 0;
