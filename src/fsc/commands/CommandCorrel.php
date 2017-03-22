@@ -11,10 +11,11 @@ class CommandCorrel extends \phpsh\Command
 	 */
 	public function exec()
 	{
-		$this->write("Here is a sample command output.");
+		$corr = $this->correlation([1,2,3], [3,2,1]);
+		$this->write($corr);
 	}
 
-	private function Correlation($x, $y)
+	private function correlation($x, $y)
 	{
 		$length = count($x);
 		$mean1 = array_sum($x) / $length;
