@@ -30,5 +30,9 @@ The various config files are located in the `src/phpsh/config` directory.
 
 ## Extending phpcs
 
-Coming soon.
+### Writing commands
+
+* Commands are written as PHP classes that extend `phpsh\Command`
+* All commands must include, at the very least, an `exec()` function
+* Commands can accept one or more arguments which are accessed via `getArgs()`
 
