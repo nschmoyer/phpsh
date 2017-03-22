@@ -5,9 +5,9 @@
 
 namespace phpsh;
 
-class Command
+abstract class Command implements CommandInterface
 {
-	private $args;
+	protected $args;
 
 	public function __construct($args = [])
 	{
