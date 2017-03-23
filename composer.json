@@ -1,14 +1,23 @@
 {
-    "require": {
-        "monolog/monolog": "^1.18",
-        "phpunit/phpunit": "4.8.x-dev",
-        "symfony/yaml": "^3.0",
-        "doctrine/orm": "v2.5.4"
-    },
-    "autoload": {
-    	"psr-0": {
-    		"phpsh\\": "src/",
-            "fsc\\": "src/"
-    	}
+  "name": "nschmoyer/phpsh",
+  "description": "A bare-bones command line interface",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nick Schmoyer",
+      "email": "nschmoyer@inspectioneering.com"
     }
+  ],
+  "require": {
+    "monolog/monolog": "^1.18",
+    "phpunit/phpunit": "4.8.x-dev",
+    "symfony/yaml": "^3.0",
+    "doctrine/orm": "v2.5.4"
+  },
+  "autoload": {
+    "psr-0": {
+      "phpsh\\": "src/",
+      "fsc\\": "src/"
+    }
+  }
 }
