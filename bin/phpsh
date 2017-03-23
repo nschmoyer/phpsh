@@ -1,7 +1,17 @@
 #!/usr/bin/env php
 <?php
 
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
+}
+
 require(__DIR__.'/../vendor/autoload.php');
+
+foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+    if (file_exists($file)) {
+        require($file);
+    }
+}
 
 use phpsh\Runner;
 
