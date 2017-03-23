@@ -2,6 +2,7 @@
   "name": "nschmoyer/phpsh",
   "description": "A bare-bones command line interface",
   "license": "MIT",
+  "bin": [ "bin/phpsh" ],
   "authors": [
     {
       "name": "Nick Schmoyer",
