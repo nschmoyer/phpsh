@@ -21,7 +21,26 @@ class Runner
 	public function __construct()
 	{
 		$this->prompt = new Prompt();
+
+		// By default, use the prompt config that comes with phpsh
 		$this->prompt->setConfigFile(__DIR__.'/config/prompt.yml');
+
+		// Look in a few directories for a separate phpsh.yml config file
+        $files = array(
+            __DIR__ . '/../../../../../phpsh.yml',
+            __DIR__ . '/../../../../../app/phpsh.yml',
+            __DIR__ . '/../../../../../config/phpsh.yml',
+            __DIR__ . '/../../../../../app/config/phpsh.yml',
+        );
+
+        foreach ($files as $file) {
+            if (file_exists($file)) {
+                // override the prompt config
+                $this->prompt->setConfigFile($file);
+
+                break;
+            }
+        }
 
 		$this->log = new Logger('commands');
 		$this->log->pushHandler(new StreamHandler(__DIR__.'/../../log/commands.log', Logger::INFO));
