@@ -36,8 +36,8 @@ Class CommandMap
             }
         }
 
-        if ($customCommands) {
-            foreach ($customCommands as $key => $command) {
+        if ($customCommands && !empty($customCommands['commands'])) {
+            foreach ($customCommands['commands'] as $key => $command) {
                 $this->commandMap[$key] = $command;
             }
         }
