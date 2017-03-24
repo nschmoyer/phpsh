@@ -34,7 +34,14 @@ phpsh will search for a `phpsh.yml` file in the following directories of your pr
 
 The configuration file defines your custom commands and prompt, and follows this format:
 
-    
+    prompt: "string containing prompt # "
+    commands:
+        command_name:
+            class: \Namespace\Class
+            args: 0
+        command_name:
+            class: \Namespace\Class
+            args: 2
 
 ### Writing commands
 
