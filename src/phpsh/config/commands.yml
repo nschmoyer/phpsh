@@ -10,9 +10,6 @@
 commands:
   class: \phpsh\Commands\CommandCommands
   args: 0
-correl:
-  class: \fsc\Commands\CommandCorrel
-  args: 0
 exit:
   class: \phpsh\Commands\CommandExit
   args: 0
