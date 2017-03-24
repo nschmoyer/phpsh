@@ -21,14 +21,20 @@ projects.
 1. Install third-party libraries via composer: `composer install`
 2. In a command-line shell, run `php bin/phpsh`
 
-## Configuration
+## Configuring and Extending phpsh
 
-The various config files are located in the `src/phpsh/config` directory.
+phpsh will search for a `phpsh.yml` file in the following directories of your project:
 
-* **commands.yml**: Contains command mappings for the application.
-* **prompt.yml**: Contains the prompt configuration.
+* /
+* /config
+* /app
+* /app/config
 
-## Extending phpcs
+### phpsh.yml configuration file
+
+The configuration file defines your custom commands and prompt, and follows this format:
+
+    
 
 ### Writing commands
 
