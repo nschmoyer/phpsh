@@ -16,17 +16,18 @@ commands:
   # point.
   commands:
     class: \phpsh\Commands\CommandCommands
-    args: 0
   exit:
     class: \phpsh\Commands\CommandExit
-    args: 0
   help:
     class: \phpsh\Commands\CommandHelp
-    args: 0
+  shutdown:
+    class: \phpsh\Commands\CommandShutdown
   sleep:
     class: \phpsh\Commands\CommandSleep
     args: 1
+  startup:
+    class: \phpsh\Commands\CommandStartup
 
-on_startup: "commands"
+on_startup: "startup"
 
-on_shutdown: "sleep 1"
+on_shutdown: "shutdown"
