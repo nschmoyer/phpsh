@@ -56,6 +56,16 @@ class Runner
 	{
 		$input = null;
 
+        // If on_startup is set, fire it here.
+        if (isset($this->config['on_startup'])) {
+            $this->runCommand($this->config['on_startup']);
+        }
+
+        // If on_shutdown is set, register it here.
+        if (isset($this->config['on_shutdown'])) {
+            register_shutdown_function(array($this, 'runCommand'), $this->config['on_shutdown']);
+        }
+
 		while (1) {
 
 			$input = $this->outputPrompt();
@@ -73,7 +83,7 @@ class Runner
 
 	}
 
-	private function runCommand($input)
+	public function runCommand($input)
 	{
 		$cmd = $this->getCommand($input);
 		$args = $this->getArgs($input);

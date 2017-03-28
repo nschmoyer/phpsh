@@ -27,6 +27,6 @@ commands:
     class: \phpsh\Commands\CommandSleep
     args: 1
 
-on_startup:
+on_startup: "commands"
 
-on_shutdown:
+on_shutdown: "sleep 1"

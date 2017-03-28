@@ -10,11 +10,7 @@ projects.
 
 * Extensible command interpreter
 * Customizable prompt
-
-## Planned Features
-
-* Access to databases using PDO
-* Access to Firebase apps
+* Execute commands on startup and shutdown
 
 ## Installation
 
