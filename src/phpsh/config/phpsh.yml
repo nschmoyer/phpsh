@@ -22,11 +22,13 @@ commands:
     class: \phpsh\Commands\CommandHelp
   shutdown:
     class: \phpsh\Commands\CommandShutdown
+    system: true
   sleep:
     class: \phpsh\Commands\CommandSleep
     args: 1
   startup:
     class: \phpsh\Commands\CommandStartup
+    system: true
 
 on_startup: "startup"
 

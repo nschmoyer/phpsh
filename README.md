@@ -12,6 +12,10 @@ projects.
 * Customizable prompt
 * Execute commands on startup and shutdown
 
+## Planned Featured
+
+* Temporary and permanent persistence (i.e. storing local variables and saving data to a file).
+
 ## Installation
 
 1. Install third-party libraries via composer: `composer install`
