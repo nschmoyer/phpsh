@@ -2,26 +2,20 @@
 
 namespace phpsh;
 
-use Symfony\Component\Yaml\Parser;
-
 class Prompt
 {
-	private $configFile;
+    private $prompt;
+
+	public function setPrompt($prompt)
+    {
+        $this->prompt = $prompt;
+    }
 
 	public function getPrompt()
 	{
+		if ($this->prompt) {
 
-		$yaml = new Parser();
-
-		if ($this->getConfigFile()) {
-
-			$prompt = $yaml->parse(
-				file_get_contents($this->getConfigFile())
-			);
-
-			$prompt = $prompt['prompt'];
-
-			return $this->convertVariables($prompt);
+			return $this->convertVariables($this->prompt);
 
 		} else {
 
@@ -37,22 +31,6 @@ class Prompt
 		$prompt = str_replace("{{ date }}", date('Y-m-d', time()), $prompt);
 
 		return $prompt;
-
-	}
-
-	public function setConfigFile($configFile)
-	{
-		$this->configFile = $configFile;
-	}
-
-	public function getConfigFile()
-	{
-
-		if ($this->configFile) {
-			return $this->configFile;
-		} else {
-			return false;
-		}
 
 	}
 }

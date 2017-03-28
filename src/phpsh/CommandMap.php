@@ -15,8 +15,8 @@ Class CommandMap
 		// get the command.yml file and map it out as an array
 		$yaml = new Parser();
 		$this->commandMap = $yaml->parse(
-			file_get_contents(__DIR__.'/config/commands.yml')
-		);
+			file_get_contents(__DIR__.'/config/phpsh.yml')
+		)['commands'];
 
 		// In addition, search for a custom phpsh.yml file and add those commands on top of the default ones
         // Look in a few directories for a separate phpsh.yml config file
@@ -29,7 +29,7 @@ Class CommandMap
 
         foreach ($files as $file) {
             if (file_exists($file)) {
-                // override the prompt config
+                // override the command config
                 $customCommands = $yaml->parse(file_get_contents($file));
 
                 break;

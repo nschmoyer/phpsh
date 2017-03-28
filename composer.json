@@ -10,15 +10,14 @@
     }
   ],
   "require": {
-    "monolog/monolog": "^1.18",
-    "phpunit/phpunit": "4.8.x-dev",
-    "symfony/yaml": "^3.0",
-    "doctrine/orm": "v2.5.4"
+    "symfony/yaml": "^3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.8.x-dev"
   },
   "autoload": {
     "psr-0": {
-      "phpsh\\": "src/",
-      "fsc\\": "src/"
+      "phpsh\\": "src/"
     }
   }
 }

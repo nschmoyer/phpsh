@@ -20,31 +20,32 @@ class Runner
 
 	public function __construct()
 	{
-		$this->prompt = new Prompt();
 
-		// By default, use the prompt config that comes with phpsh
-		$this->prompt->setConfigFile(__DIR__.'/config/prompt.yml');
+		$this->prompt = new Prompt();
+        $yaml = new Parser();
 
 		// Look in a few directories for a separate phpsh.yml config file
+        // If not found in the project directory, use the default phpsh.yml that comes with the library
         $files = array(
             __DIR__ . '/../../../../../phpsh.yml',
             __DIR__ . '/../../../../../app/phpsh.yml',
             __DIR__ . '/../../../../../config/phpsh.yml',
             __DIR__ . '/../../../../../app/config/phpsh.yml',
+            __DIR__ . '/config/phpsh.yml',
         );
 
         foreach ($files as $file) {
             if (file_exists($file)) {
-                // override the prompt config
-                $this->prompt->setConfigFile($file);
+
+                $this->config = $yaml->parse(file_get_contents($file));
+
+                if (isset($this->config['prompt'])) {
+                    $this->prompt->setPrompt($this->config['prompt']);
+                }
 
                 break;
             }
         }
-
-		$this->log = new Logger('commands');
-		$this->log->pushHandler(new StreamHandler(__DIR__.'/../../log/commands.log', Logger::INFO));
-
 	}
 
 	/**
@@ -82,16 +83,12 @@ class Runner
 		$commandMap = $map->getCommandMap();
 
 		if (array_key_exists($cmd, $commandMap)) {
-
-			$this->log->addInfo('Exec command: '.$cmd, $args);
 			
 			$class = $commandMap[$cmd]['class'];
 			$command = new $class($args);
 			$command->exec($args);
 
 		} else {
-
-			$this->log->addError('Invalid command: '.$cmd, $args);
 
 			echo "Command not found.\n";
 

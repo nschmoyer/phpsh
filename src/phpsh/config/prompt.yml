@@ -1,7 +1,0 @@
-# Define the prompt in this file.
-#
-# Allowed variables:
-#
-# {{ date }}          The current date
-# {{ time }}          The current time
-prompt:   "{{ date }} {{ time }} # "
