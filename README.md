@@ -38,6 +38,8 @@ The configuration file defines your custom commands and prompt, and follows this
         command_name:
             class: \Namespace\Class
             args: 2
+    on_startup: "command"
+    on_shutdown: "command"
 
 ### Writing commands
 
