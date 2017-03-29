@@ -54,25 +54,53 @@ class Runner
 	 */
 	public function run()
 	{
-		$input = null;
+	    $pid = pcntl_fork();
 
-        // If on_startup is set, fire it here.
-        if (isset($this->config['on_startup'])) {
-            $this->runCommand($this->config['on_startup']);
+	    if ($pid == -1) {
+	        throw new \Exception("Could not fork process to initiate heartbeat.");
+        } elseif ($pid) {
+
+	        // Parent process: receives user input
+
+            $input = null;
+
+            // If on_startup is set, fire it here.
+            if (isset($this->config['on_startup'])) {
+                $this->runCommand($this->config['on_startup']);
+            }
+
+            // If on_shutdown is set, register it here.
+            if (isset($this->config['on_shutdown'])) {
+                register_shutdown_function(array($this, 'runCommand'), $this->config['on_shutdown']);
+            }
+
+            while (1) {
+
+                $input = $this->outputPrompt();
+
+                $this->runCommand($input);
+
+            }
+
+        } else {
+
+	        // Child process: runs the heartbeat
+            $time = time();
+
+            while (1) {
+
+                echo (time() - $time) . "\n";
+                if ((time() - $time) == 10) {
+                }
+
+                $time = time();
+
+                sleep(1);
+            }
+
         }
 
-        // If on_shutdown is set, register it here.
-        if (isset($this->config['on_shutdown'])) {
-            register_shutdown_function(array($this, 'runCommand'), $this->config['on_shutdown']);
-        }
 
-		while (1) {
-
-			$input = $this->outputPrompt();
-
-			$this->runCommand($input);
-
-		}
 	}
 
 	private function outputPrompt()
